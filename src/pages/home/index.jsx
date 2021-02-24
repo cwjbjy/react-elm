@@ -1,8 +1,10 @@
 import { Button } from 'antd-mobile';
+import Header from '@/components/header/index.jsx'
 const Home = ()=>{
     return(
         <div>
-            <Button type="primary">primary</Button>
+            <Header left='search' title='请选择地址...'/>
+            {/* <Button type="primary">primary</Button> */}
         </div>
     )
 }
