@@ -1,23 +1,65 @@
 import { NavBar, Icon } from "antd-mobile";
 import PropTypes from "prop-types";
-
+import { withRouter } from "react-router-dom";
 const Header = (props) => {
-  console.log(props);
-  let { left,title } = props;
+  let { left, title, right, history } = props;
+
+  let leftContent = null;
+  let rightContent = null;
+
+  const onLeftClick = () => {
+    switch (left.type) {
+      case "back":
+        history.goBack();
+        break;
+      case "search":
+        history.push(left.value);
+        break;
+      default:
+        break;
+    }
+    console.log("222");
+  };
+
+  const onRightClick = () => {
+    switch (right.type) {
+      case "user":
+        history.push(right.value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  switch (left.type) {
+    case "back":
+      leftContent = <Icon type="left" />;
+      break;
+    case "search":
+      leftContent = <Icon type="search" />;
+      break;
+    default:
+      leftContent = "";
+      break;
+  }
+
+  switch (right.type) {
+    case "user":
+      rightContent = (
+        <div className="iconfont icon-user" onClick={onRightClick}></div>
+      );
+      break;
+    default:
+      rightContent = "";
+      break;
+  }
+
   return (
     <NavBar
       mode="dark"
-      icon={
-        left === "back" ? (
-          <Icon type="left" />
-        ) : left === "search" ? (
-          <Icon type="search" />
-        ) : (
-          ""
-        )
-      }
-      onLeftClick={() => console.log("onLeftClick")}
-      rightContent={<div className="iconfont icon-user"></div>}
+      icon={leftContent}
+      onLeftClick={onLeftClick}
+      rightContent={rightContent}
     >
       {title}
     </NavBar>
@@ -25,12 +67,9 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  left: PropTypes.string,
-  title:PropTypes.string,
+  left: PropTypes.object,
+  title: PropTypes.string,
+  right: PropTypes.object,
 };
 
-Header.defaultProps = {
-  left: "none",
-};
-
-export default Header;
+export default withRouter(Header);
