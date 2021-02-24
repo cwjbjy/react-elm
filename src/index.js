@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './layout/App';
+import RouterView from './router/lib/index.jsx'
 import './config/rem'
 
 ReactDOM.render(
-    <App />,
+    <RouterView />,
   document.getElementById('root')
 );
 
