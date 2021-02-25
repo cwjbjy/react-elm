@@ -1,13 +1,13 @@
 
 import {lazy} from "react";
-const Login = lazy(()=>import(/* webpackChunkName: "Login" */ '@/pages/login/index.jsx'))
+const Location = lazy(()=>import(/* webpackChunkName: "location" */ '@/pages/location/index.jsx'))
 
-const login = [
+const location = [
     {
-        path:'/login',
-        Component:Login,
+        path:'/location',
+        Component:Location,
         layout:'NONE',
     },
 ]
 
-export default login
+export default location

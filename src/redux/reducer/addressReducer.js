@@ -6,7 +6,7 @@ const initalState = {
     address: '请选择地址...'
 }
 
-const food = (state = initalState, action) => {
+const address = (state = initalState, action) => {
     switch (action.type) {
         case ADDRESS:
             return {
@@ -17,4 +17,4 @@ const food = (state = initalState, action) => {
     }
 }
 
-export default food
+export default address

@@ -5,12 +5,17 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as foodAction from "@/redux/action/foodAction";
 const Home = (props) => {
-  console.log(props)
-  let { history } = props;
+  console.log(props);
+  let { history, address } = props;
 
   const leftConfig = {
     icon: <Icon type="search" />,
     func: () => history.push("/search"),
+  };
+
+  const centerConfig = {
+    title: address,
+    func: () => history.push("/location"),
   };
 
   const rightConfig = {
@@ -25,20 +30,20 @@ const Home = (props) => {
   return (
     <Fragment>
       <nav>
-        <Header left={leftConfig} title="请选择地址..." right={rightConfig} />
+        <Header left={leftConfig} center={centerConfig} right={rightConfig} />
       </nav>
     </Fragment>
   );
 };
 
-const mapStateToProps = (state) =>{
-  return state
-}
+const mapStateToProps = (state) => {
+  return state.address;
+};
 
-const mapDispatchToProps = (dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
   return {
-    foodAction:bindActionCreators(foodAction,dispatch)
-  }
-}
+    foodAction: bindActionCreators(foodAction, dispatch),
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

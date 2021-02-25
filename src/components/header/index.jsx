@@ -1,9 +1,15 @@
 import { NavBar } from "antd-mobile";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+
 const Header = (props) => {
-    
-  let { left, title, right } = props;
+
+  let { left, center, right } = props;
+
+  const onCenterClick = ()=>{
+      if(!center.func) return;
+      center.func()
+  }
 
   return (
     <NavBar
@@ -12,15 +18,19 @@ const Header = (props) => {
       onLeftClick={left.func}
       rightContent={right.icon}
     >
-      {title}
+      <span onClick={onCenterClick}>{center.title}</span>
     </NavBar>
   );
 };
 
 Header.propTypes = {
   left: PropTypes.object,
-  title: PropTypes.string,
+  center:PropTypes.object,
   right: PropTypes.object,
 };
+
+Header.defaultProps = {
+    right:{icon:''}
+}
 
 export default withRouter(Header);

@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import  food from "./foodReducer";
+import  address from "./addressReducer";
 
 const rootReducer = combineReducers({
-    food
+    address
 })
 
 
