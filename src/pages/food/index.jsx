@@ -1,14 +1,24 @@
 import Header from "@/components/header/index.jsx";
+import { Icon } from "antd-mobile";
 import { Fragment } from "react";
-const Home = () => {
+const Home = (props) => {
+  
+  let { history } = props;
+
   const leftConfig = {
-    type: "search",
-    value: "/login",
+    icon: <Icon type="search" />,
+    func: () => history.push("/search"),
   };
+
   const rightConfig = {
-    type: "user",
-    value: "/login",
+    icon: (
+      <div
+        className="iconfont icon-user"
+        onClick={() => history.push("/user")}
+      ></div>
+    ),
   };
+
   return (
     <Fragment>
       <nav>

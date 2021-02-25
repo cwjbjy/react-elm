@@ -1,64 +1,16 @@
-import { NavBar, Icon } from "antd-mobile";
+import { NavBar } from "antd-mobile";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 const Header = (props) => {
-  let { left, title, right, history } = props;
-
-  let leftContent = null;
-  let rightContent = null;
-
-  const onLeftClick = () => {
-    switch (left.type) {
-      case "back":
-        history.goBack();
-        break;
-      case "search":
-        history.push(left.value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const onRightClick = () => {
-    switch (right.type) {
-      case "user":
-        history.push(right.value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  switch (left.type) {
-    case "back":
-      leftContent = <Icon type="left" />;
-      break;
-    case "search":
-      leftContent = <Icon type="search" />;
-      break;
-    default:
-      leftContent = "";
-      break;
-  }
-
-  switch (right.type) {
-    case "user":
-      rightContent = (
-        <div className="iconfont icon-user" onClick={onRightClick}></div>
-      );
-      break;
-    default:
-      rightContent = "";
-      break;
-  }
+    
+  let { left, title, right } = props;
 
   return (
     <NavBar
       mode="dark"
-      icon={leftContent}
-      onLeftClick={onLeftClick}
-      rightContent={rightContent}
+      icon={left.icon}
+      onLeftClick={left.func}
+      rightContent={right.icon}
     >
       {title}
     </NavBar>
