@@ -1,0 +1,1 @@
+export {ADDRESS} from './foodConst'

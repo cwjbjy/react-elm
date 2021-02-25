@@ -1,8 +1,11 @@
 import Header from "@/components/header/index.jsx";
 import { Icon } from "antd-mobile";
 import { Fragment } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as foodAction from "@/redux/action/foodAction";
 const Home = (props) => {
-  
+  console.log(props)
   let { history } = props;
 
   const leftConfig = {
@@ -28,4 +31,14 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+const mapStateToProps = (state) =>{
+  return state
+}
+
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    foodAction:bindActionCreators(foodAction,dispatch)
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Home);
