@@ -1,28 +1,6 @@
 import "./index.scss";
 import { NavLink } from "react-router-dom";
-
-const menuConfig = [
-  {
-    title: "外卖",
-    icon: <div className="iconfont icon-SSS"></div>,
-    path: "/food",
-  },
-  {
-    title: "搜索",
-    icon: <div className="iconfont icon-icon-zhinanzhen"></div>,
-    path: "/search",
-  },
-  {
-    title: "订单",
-    icon: <div className="iconfont icon-dingdan"></div>,
-    path: "/order",
-  },
-  {
-    title: "我的",
-    icon: <div className="iconfont icon-yonghu"></div>,
-    path: "/user",
-  },
-];
+import PropTypes from "prop-types";
 
 const buildGuide = (value) => {
   return value.map((item, index) => (
@@ -33,8 +11,13 @@ const buildGuide = (value) => {
   ));
 };
 
-const Footer = () => {
-  return <div className="guide">{buildGuide(menuConfig)}</div>;
+const Footer = (props) => {
+  let { source } = props;
+  return <div className="guide">{buildGuide(source)}</div>;
+};
+
+Footer.prototypes = {
+  source: PropTypes.array,
 };
 
 export default Footer;
