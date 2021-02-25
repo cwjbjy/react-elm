@@ -1,4 +1,4 @@
-// import Menus from "../components/menus/index.jsx";
+import Footer from "../components/footer/index.jsx";
 
 import "./App.scss";
 // import { Component } from "react";
@@ -10,7 +10,7 @@ const AppHome = (props)=>{
       <main>
         {routes}
       </main>
-      <footer>footer</footer>
+      <Footer/>
     </div>
   )
 }

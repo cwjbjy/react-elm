@@ -18,7 +18,6 @@ const Header = (props) => {
       default:
         break;
     }
-    console.log("222");
   };
 
   const onRightClick = () => {

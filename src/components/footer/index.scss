@@ -1,0 +1,23 @@
+.guide{
+    border-top: 1px solid $border;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    display: flex;
+    background-color: $bg;
+    .guide_item{
+        flex: 1;
+        text-align: center;
+        padding-top: 8rem;
+        color: $font;
+    }
+    
+    .guide_title{
+        font-size: 24rem;
+        margin-bottom: 8rem;
+    }
+    .active{
+        color: $active;
+    }
+}
+

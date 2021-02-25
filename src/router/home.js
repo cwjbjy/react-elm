@@ -1,11 +1,26 @@
 import { lazy } from "react";
 
-const Home = lazy(()=>import(/* webpackChunkName: "home" */'@/pages/home/index.jsx'))
+const Food = lazy(()=>import(/* webpackChunkName: "food" */'@/pages/food/index.jsx'))
+const Search = lazy(()=>import(/* webpackChunkName: "search" */'@/pages/search/index.jsx'))
+const Order = lazy(()=>import(/* webpackChunkName: "order" */'@/pages/order/index.jsx'))
+const User = lazy(()=>import(/* webpackChunkName: "user" */'@/pages/user/index.jsx'))
 
 const home = [
     {
-        path:'/home',
-        Component:Home,
+        path:'/food',
+        Component:Food,
+    },
+    {
+        path:'/search',
+        Component:Search,
+    },
+    {
+        path:'/order',
+        Component:Order,
+    },
+    {
+        path:'/user',
+        Component:User,
     },
 ]
 

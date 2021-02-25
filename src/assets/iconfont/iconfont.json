@@ -6,18 +6,25 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4409034",
+      "name": "饿了么",
+      "font_class": "SSS",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "7375123",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e73a",
+      "unicode_decimal": 59194
+    },
+    {
       "icon_id": "1188608",
       "name": "icon-zhinanzhen",
       "font_class": "icon-zhinanzhen",
       "unicode": "e629",
       "unicode_decimal": 58921
-    },
-    {
-      "icon_id": "4716658",
-      "name": "饿了么",
-      "font_class": "eliaomo",
-      "unicode": "e669",
-      "unicode_decimal": 58985
     },
     {
       "icon_id": "18267915",
