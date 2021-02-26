@@ -16,4 +16,10 @@ API.getCity = (params)=>{
     return HttpClient.get(`${baseUrl}/v1/cities/${params}`)
 }
 
+API.getAddress = (params) =>{
+    return HttpClient.get(`${baseUrl}/v1/pois`,{
+        data:params
+    })
+}
+
 export default API

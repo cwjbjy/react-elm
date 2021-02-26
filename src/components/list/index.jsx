@@ -1,22 +1,27 @@
-import './index.scss'
+import PropTypes from "prop-types";
+import "./index.scss";
 
-const List = () => {
-    return(
-        <ul className="list">
-            <li className="list_item">
-                <div className="title">上海交通大学(徐汇区)</div>
-                <p className="subTitle">上海徐湖区</p>
-            </li>
-            <li className="list_item">
-                <div className="title">上海交通大学(徐汇区)</div>
-                <p className="subTitle">上海徐湖区</p>
-            </li>
-            <li className="list_item">
-                <div className="title">上海交通大学(徐汇区)</div>
-                <p className="subTitle">上海徐湖区</p>
-            </li>
-        </ul>
-    )
+const List = (props) => {
+  let { source,callback } = props;
+  return (
+    <ul className="list">
+      {source.map((item, index) => (
+        <li className="list_item" key={index} onClick={callback.bind("",'address',item)}>
+          <div className="title">{item.name}</div>
+          <p className="subTitle">{item.address}</p>
+        </li>
+      ))}
+    </ul>
+  );
 };
+
+List.propTypes = {
+  source: PropTypes.array,
+  callback:PropTypes.func
+};
+
+List.defaultProps = {
+    callback:()=>{}
+}
 
 export default List;
