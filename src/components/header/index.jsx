@@ -1,11 +1,12 @@
 import { NavBar } from "antd-mobile";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import './index.scss'
 
 const Header = (props) => {
 
   let { left, center, right } = props;
-  
+
   const onCenterClick = ()=>{
       if(!center.func) return;
       center.func()
@@ -18,7 +19,7 @@ const Header = (props) => {
       onLeftClick={left.func}
       rightContent={right.icon}
     >
-      <span onClick={onCenterClick}>{center.title}</span>
+      <div className="barTitle" onClick={onCenterClick}>{center.title}</div>
     </NavBar>
   );
 };
