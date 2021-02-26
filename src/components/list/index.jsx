@@ -6,7 +6,7 @@ const List = (props) => {
   return (
     <ul className="list">
       {source.map((item, index) => (
-        <li className="list_item" key={index} onClick={callback.bind("",'address',item)}>
+        <li className="list_item" key={index} onClick={callback.bind("",item)}>
           <div className="title">{item.name}</div>
           <p className="subTitle">{item.address}</p>
         </li>

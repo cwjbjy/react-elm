@@ -1,7 +1,8 @@
 import Header from "@/components/header/index.jsx";
 import { Icon, Button } from "antd-mobile";
 import { useEffect, useState, useRef, Fragment } from "react";
-import {  readLocal,removeLocal } from "@/utils/local.js";
+import { saveLocal, readLocal, removeLocal } from "@/utils/local.js";
+import {HISTORYCITY,ADDRESS} from '@/constant'
 import List from "@/components/list/index.jsx";
 import API from "@/service/index";
 import "./index.scss";
@@ -30,10 +31,10 @@ const City = (props) => {
   }, [match.params.id]);
 
   useEffect(() => {
-    readLocal("address").then(res=>{
-      if(res == null) return;
-      getHistoryGroup(res)
-    })    
+    readLocal(HISTORYCITY).then((res) => {
+      if (res == null) return;
+      getHistoryGroup(res);
+    });
   }, []);
 
   const onSearch = () => {
@@ -43,34 +44,44 @@ const City = (props) => {
       city_id: cityInfo.id,
     };
     API.getAddress(params).then((res) => {
-      getGroup(res);
+      if(Array.isArray(res)){
+        getGroup(res);
+      }else{
+        getGroup([])
+      }
     });
   };
 
-  const onAddress = async (key, value) => {
-    if (!localStorage.getItem(key)) {
-        localStorage.setItem(key, JSON.stringify([value]))
+  const onAddress = async (value) => {
+    if (!localStorage.getItem(HISTORYCITY)) {
+      saveLocal(HISTORYCITY, value);
     } else {
-        await readLocal(key).then(res => {
-            let arr = res;
-            for (let i = 0, len = arr.length; i < len; i++) {
-                if (arr[i].name === value.name) {
-                    return;
-                } else {
-                    arr.push(value)
-                    localStorage.setItem(key, JSON.stringify(arr))
-                    return;
-                }
-            }
-        });
+      await readLocal(HISTORYCITY).then((res) => {
+        let arr = res;
+        for (let i = 0, len = arr.length; i < len; i++) {
+          if (arr[i].name === value.name) {
+            return;
+          } else {
+            arr.push(value);
+            localStorage.setItem(HISTORYCITY, JSON.stringify(arr));
+            return;
+          }
+        }
+      });
     }
-    history.push('/food')
-}
+    history.push("/food");
+    saveLocal(ADDRESS, value);
+  };
 
-const onClear = ()=>{
-  removeLocal("address")
-  getHistoryGroup([])
-}
+  const onItemClick = (value) => {
+    history.push("/food");
+    saveLocal(ADDRESS, value);
+  };
+
+  const onClear = () => {
+    removeLocal(HISTORYCITY);
+    getHistoryGroup([]);
+  };
 
   return (
     <div className="city">
@@ -101,12 +112,14 @@ const onClear = ()=>{
         {group.length === 0 ? (
           <Fragment>
             <div className="historyTitle">搜索历史</div>
-            {(historyGroup && historyGroup.length === 0)   ? (
+            {historyGroup && historyGroup.length === 0 ? (
               <div className="tip">暂无历史数据</div>
             ) : (
               <Fragment>
-                <List source={historyGroup} />
-                <div className="tip" onClick={onClear}>清空所有</div>
+                <List source={historyGroup} callback={onItemClick} />
+                <div className="tip" onClick={onClear}>
+                  清空所有
+                </div>
               </Fragment>
             )}
           </Fragment>

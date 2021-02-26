@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 const Header = (props) => {
 
   let { left, center, right } = props;
-
+  
   const onCenterClick = ()=>{
       if(!center.func) return;
       center.func()
