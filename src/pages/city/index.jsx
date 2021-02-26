@@ -1,11 +1,10 @@
 import Header from "@/components/header/index.jsx";
-import { Icon, Button, List } from "antd-mobile";
+import { Icon, Button } from "antd-mobile";
 import { useEffect, useState, useRef } from "react";
+import List from '@/components/list/index.jsx'
 import API from "@/service/index";
 import "./index.scss";
 
-const Item = List.Item;
-const Brief = Item.Brief;
 
 const City = (props) => {
   let { history, match } = props;
@@ -59,17 +58,7 @@ const City = (props) => {
       </div>
       <div className="box">
       <div className="historyTitle">搜索历史</div>
-          <List  className="my-list">
-            <Item multipleLine onClick={() => {}}>
-              Title <Brief>subtitle</Brief>
-            </Item>
-            <Item multipleLine onClick={() => {}}>
-              Title <Brief>subtitle</Brief>
-            </Item>
-            <Item multipleLine onClick={() => {}}>
-              Title <Brief>subtitle</Brief>
-            </Item>
-          </List>
+          <List/>
           <div className="clear">清空所有</div>
       </div>
     </div>
