@@ -1,34 +1,21 @@
 import Header from "@/components/header/index.jsx";
 import { Icon, List } from "antd-mobile";
 import { useEffect, useState } from "react";
-import API from '@/service/index'
+import API from "@/service/index";
 import "./index.scss";
 
 const Item = List.Item;
 
-const showItem = (value) =>
+const showItem = (value,callback) =>
   value.map((item, index) => (
-    <div className="gridItem" key={index}>
+    <div
+      className="gridItem"
+      key={index}
+      onClick={callback.bind(this,item.id)}
+    >
       {item.name}
     </div>
   ));
-
-const showGroup = (value) => {
-  let groupList = [];
-  for (let key in value) {
-    groupList.push(
-      <List renderHeader={() => key} className="my-list" key={key}>
-        <Item className="">
-          {showItem(value[key])}
-        </Item>
-      </List>
-    )
-  }
-  groupList.sort((a,b)=>{
-    return (a.key < b.key) ? -1 : (a.key > b.key) ? 1 : 0
-  })
-  return groupList
-};
 
 const Location = (props) => {
   let { history } = props;
@@ -44,7 +31,7 @@ const Location = (props) => {
 
   useEffect(() => {
     API.getLocation({ type: "guess" }).then((res) => {
-      getGuess({name:res.name,id:res.id});
+      getGuess({ name: res.name, id: res.id });
     });
     API.getLocation({ type: "hot" }).then((res) => {
       getHot(res);
@@ -53,6 +40,25 @@ const Location = (props) => {
       getGroup(res);
     });
   }, []);
+
+  const skip = (id) => {
+    history.push(`/city/${id}`);
+  }
+
+  const showGroup = (value) => {
+    let groupList = [];
+    for (let key in value) {
+      groupList.push(
+        <List renderHeader={() => key} className="my-list" key={key}>
+          <Item className="">{showItem(value[key],skip)}</Item>
+        </List>
+      );
+    }
+    groupList.sort((a, b) => {
+      return a.key < b.key ? -1 : a.key > b.key ? 1 : 0;
+    });
+    return groupList;
+  };
 
   return (
     <div className="location">
@@ -69,7 +75,7 @@ const Location = (props) => {
         </Item>
       </List>
       <List renderHeader={() => "热门城市:"} className="my-list">
-        <Item className="highlight">{showItem(hot)}</Item>
+        <Item className="highlight">{showItem(hot,skip)}</Item>
       </List>
       {showGroup(group)}
     </div>
