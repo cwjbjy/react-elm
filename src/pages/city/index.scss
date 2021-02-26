@@ -1,0 +1,42 @@
+.city{
+    width: 100vw;
+    height: 100vh;
+}
+
+.box{
+    background-color: $bg;
+    border-top: 1px solid $inputBorder;
+    border-bottom: 1px solid $inputBorder;
+    margin-top: 20rem;
+    padding: 20rem 0;
+    .boxContent{
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+.primaryButton{
+    border-radius: 0;
+    margin-top: 20rem;
+}
+
+.normalInput{
+    border: 1px solid $inputBorder;
+    padding: 0 16rem;
+    height: 64rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.historyTitle{
+    padding-left: 15px;
+    margin-bottom: 20rem;
+}
+
+.clear{
+    font-size: 32rem;
+    text-align: center;
+    line-height: 64rem;
+    margin-top: 20rem;
+    color: $font;
+}

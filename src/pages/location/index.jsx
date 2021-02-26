@@ -1,9 +1,7 @@
 import Header from "@/components/header/index.jsx";
 import { Icon, List } from "antd-mobile";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
 import { useEffect, useState } from "react";
-import * as locationAction from "@/redux/action/locationAction";
+import API from '@/service/index'
 import "./index.scss";
 
 const Item = List.Item;
@@ -33,28 +31,28 @@ const showGroup = (value) => {
 };
 
 const Location = (props) => {
-  let { history, locationAction } = props;
+  let { history } = props;
 
   const leftConfig = {
     icon: <Icon type="left" />,
-    func: () => history.push("/food"),
+    func: () => history.goBack(),
   };
 
-  const [guess, getGuess] = useState("");
+  const [guess, getGuess] = useState({});
   const [hot, getHot] = useState([]);
   const [group, getGroup] = useState({});
 
   useEffect(() => {
-    locationAction.getLocation({ type: "guess" }).then((res) => {
-      getGuess(res.name);
+    API.getLocation({ type: "guess" }).then((res) => {
+      getGuess({name:res.name,id:res.id});
     });
-    locationAction.getLocation({ type: "hot" }).then((res) => {
+    API.getLocation({ type: "hot" }).then((res) => {
       getHot(res);
     });
-    locationAction.getLocation({ type: "group" }).then((res) => {
+    API.getLocation({ type: "group" }).then((res) => {
       getGroup(res);
     });
-  }, [locationAction]);
+  }, []);
 
   return (
     <div className="location">
@@ -63,11 +61,11 @@ const Location = (props) => {
         <Item
           arrow="horizontal"
           onClick={() => {
-            console.log("11");
+            history.push(`/city/${guess.id}`);
           }}
           className="highlight"
         >
-          {guess}
+          {guess.name}
         </Item>
       </List>
       <List renderHeader={() => "热门城市:"} className="my-list">
@@ -78,14 +76,4 @@ const Location = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return state;
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    locationAction: bindActionCreators(locationAction, dispatch),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Location);
+export default Location;

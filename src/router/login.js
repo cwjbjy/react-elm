@@ -1,11 +1,17 @@
 
 import {lazy} from "react";
 const Location = lazy(()=>import(/* webpackChunkName: "location" */ '@/pages/location/index.jsx'))
+const City = lazy(()=>import(/* webpackChunkName: "city" */ '@/pages/city/index.jsx'))
 
 const location = [
     {
         path:'/location',
         Component:Location,
+        layout:'NONE',
+    },
+    {
+        path:'/city/:id',
+        Component:City,
         layout:'NONE',
     },
 ]
