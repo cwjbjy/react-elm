@@ -1,17 +1,15 @@
-import { Carousel, WingBlank } from "antd-mobile";
+import { Grid } from "antd-mobile";
+import './index.scss'
 
-const carouseGood = () => {
-  return (
-    <WingBlank>
-      <Carousel
-        autoplay={false}
-      >
-        <div key="1" style={{height:100}}>12</div>
-        <div key="2">23</div>
-        <div key="3">34</div>
-      </Carousel>
-    </WingBlank>
-  );
+const CarouseGood = (props) => {
+  let { source } = props;
+  const imgBaseUrl = 'https://fuss10.elemecdn.com';
+  const config = {
+    hasLine:false,
+    isCarousel:true
+  }
+  let data = source.map((item) => ({ icon: imgBaseUrl + item.image_url, text: item.title }));
+  return <Grid data={data} {...config} onClick={(_el) => console.log(_el)} />;
 };
 
-export default carouseGood;
+export default CarouseGood;

@@ -17,7 +17,7 @@ const City = (props) => {
   };
 
   const rightConfig = {
-    icon: <div onClick={() => history.push("/location")}>切换城市</div>,
+    icon: <div className="barRight" onClick={() => history.push("/location")}>切换城市</div>,
   };
 
   const [cityInfo, getCityInfo] = useState({});
