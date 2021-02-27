@@ -8,6 +8,7 @@ import API from "@/service/index";
 import "./index.scss";
 
 const City = (props) => {
+  
   let { history, match } = props;
 
   const leftConfig = {
