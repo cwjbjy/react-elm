@@ -8,7 +8,7 @@ const CarouseGood = (props) => {
     hasLine:false,
     isCarousel:true
   }
-  let data = source.map((item) => ({ icon: imgBaseUrl + item.image_url, text: item.title }));
+  let data = source.map((item) => ({ icon: imgBaseUrl + item.image_url, text: item.title ,id :item.id}));
   return <Grid data={data} {...config} onClick={(_el) => console.log(_el)} />;
 };
 

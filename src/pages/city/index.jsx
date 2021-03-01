@@ -3,7 +3,7 @@ import { Icon, Button } from "antd-mobile";
 import { useEffect, useState, useRef, Fragment } from "react";
 import { saveLocal, readLocal, removeLocal } from "@/utils/local.js";
 import {HISTORYCITY,ADDRESS} from '@/constant'
-import List from "@/components/list/index.jsx";
+import HistoryList from "@/components/historyList/index.jsx";
 import API from "@/service/index";
 import "./index.scss";
 
@@ -117,7 +117,7 @@ const City = (props) => {
               <div className="tip">暂无历史数据</div>
             ) : (
               <Fragment>
-                <List source={historyGroup} callback={onItemClick} />
+                <HistoryList source={historyGroup} callback={onItemClick} />
                 <div className="tip" onClick={onClear}>
                   清空所有
                 </div>
@@ -125,7 +125,7 @@ const City = (props) => {
             )}
           </Fragment>
         ) : (
-          <List source={group} callback={onAddress} />
+          <HistoryList source={group} callback={onAddress} />
         )}
       </div>
     </div>

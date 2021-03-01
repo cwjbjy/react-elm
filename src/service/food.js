@@ -5,9 +5,14 @@ import {
 
 let API = {};
 
-//获取用户单条信息
 API.indexEnter = (params) => {
     return HttpClient.get(`${baseUrl}/v2/index_entry`,{
+        data:params
+    })
+}
+
+API.shoppingRestaurants = (params) => {
+    return HttpClient.get(`${baseUrl}/shopping/restaurants`,{
         data:params
     })
 }

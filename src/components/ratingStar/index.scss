@@ -1,0 +1,30 @@
+.rating_container {
+  display: flex;
+  position: relative;
+}
+
+.star_container {
+  display: flex;
+}
+
+.rating_num{
+    position: absolute;
+    left: 130rem;
+    color: #ff9a0d;
+}
+
+.star_overflow {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+.grey_fill {
+  color: #d1d1d1;
+  font-size: 24rem;
+}
+
+.orange_fill {
+  color: #ff9a0d;
+  font-size: 24rem;
+}

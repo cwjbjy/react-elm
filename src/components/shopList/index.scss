@@ -1,0 +1,59 @@
+.shopList {
+  display: flex;
+  padding: 32rem 20rem;
+  border-bottom: 2rem solid $listBorder;
+  img {
+    width: 128rem;
+    height: 128rem;
+    margin-right: 20rem;
+  }
+  .shopInfo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      .name {
+        font-size: 30rem;
+        font-weight: 700;
+        color: #333;
+      }
+      .premium::before {
+        content: "品牌";
+        display: inline-block;
+        font-size: 24rem;
+        line-height: 32rem;
+        color: #333;
+        background-color: #ffd930;
+        padding: 0 4rem;
+        border-radius: 4rem;
+        margin-right: 8rem;
+      }
+      .shop_detail_ul {
+        display: flex;
+        transform: scale(0.8);
+        .supports {
+          font-size: 24rem;
+          color: #999;
+          border: 2rem solid #f1f1f1;
+          margin-left: 4rem;
+        }
+      }
+    }
+    .rating {
+      display: flex;
+      justify-content: space-between;
+      height: 28rem;
+      margin-top: 24rem;
+    }
+  }
+}
+ul,
+h4 {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background-color: $bg;
+}

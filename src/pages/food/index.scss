@@ -1,0 +1,16 @@
+.listTitle{
+    color: $subFont;
+    display: flex;
+    background-color: $bg;
+    margin-top: 20rem;
+    padding-top: 20rem;
+    > .iconfont{
+        font-size: 34rem;
+        margin-left: 20rem;
+    }
+   
+    .text{
+        margin-left: 10rem;
+        line-height: 20px;
+    }
+}
