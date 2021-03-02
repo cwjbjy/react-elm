@@ -2,7 +2,7 @@ import Header from "@/components/header/index.jsx";
 import { Icon, List } from "antd-mobile";
 import { useEffect, useState } from "react";
 import API from "@/service/index";
-import { ADDRESS } from "@/constant";
+import {connect} from 'react-redux'
 import "./index.scss";
 
 const Item = List.Item;
@@ -19,10 +19,10 @@ const showItem = (value,callback) =>
   ));
 
 const Location = (props) => {
-  let { history } = props;
+  let { history,Location } = props;
 
   const leftConfig = {
-    icon: localStorage.getItem(ADDRESS) ? <Icon type="left" /> : '',
+    icon: Location.latitude ? <Icon type="left" /> : '',
     func: () => history.goBack(),
   };
 
@@ -83,4 +83,8 @@ const Location = (props) => {
   );
 };
 
-export default Location;
+const mapStateToProps = (state)=>{
+  return state
+}
+
+export default connect(mapStateToProps)(Location);

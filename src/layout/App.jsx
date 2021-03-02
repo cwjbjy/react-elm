@@ -1,12 +1,13 @@
 import Footer from "../components/footer/index.jsx";
 import menuConfig from '../constant/menu';
 import {Component} from 'react'
-import { ADDRESS } from "@/constant";
+import { connect } from "react-redux";
 import "./App.scss";
 
 class AppHome extends Component{
   componentDidMount(){
-    if(!localStorage.getItem(ADDRESS)){
+    let {Location} = this.props;
+    if(!Location.latitude){
       this.props.history.push('/location')
     }else if(this.props.location.pathname !== '/food'){
       this.props.history.push('/food')
@@ -26,4 +27,8 @@ class AppHome extends Component{
   }
 }
 
-export default AppHome;
+const mapStateToProps = (state)=>{
+  return state
+}
+
+export default connect(mapStateToProps)(AppHome);

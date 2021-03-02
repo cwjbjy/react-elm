@@ -5,10 +5,13 @@ import { saveLocal, readLocal, removeLocal } from "@/utils/local.js";
 import {HISTORYCITY,ADDRESS} from '@/constant'
 import HistoryList from "@/components/historyList/index.jsx";
 import API from "@/service/index";
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux'
+import * as LocationAction from "@/redux/action"
 import "./index.scss";
 
 const City = (props) => {
-  
+
   let { history, match } = props;
 
   const leftConfig = {
@@ -70,13 +73,15 @@ const City = (props) => {
         }
       });
     }
+    props.LocationAction.SET_ADDRESS(value)
+    localStorage.setItem(ADDRESS,JSON.stringify(value))
     history.push("/food");
-    saveLocal(ADDRESS, value);
   };
 
   const onItemClick = (value) => {
+    props.LocationAction.SET_ADDRESS(value)
+    localStorage.setItem(ADDRESS,JSON.stringify(value))
     history.push("/food");
-    saveLocal(ADDRESS, value);
   };
 
   const onClear = () => {
@@ -132,4 +137,10 @@ const City = (props) => {
   );
 };
 
-export default City;
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    LocationAction:bindActionCreators(LocationAction,dispatch)
+  }
+}
+
+export default connect(null,mapDispatchToProps)(City);

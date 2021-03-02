@@ -1,1 +1,1 @@
-// export {ADDRESS} from './foodConst'
+export const ADDRESS = 'ADDRESS'

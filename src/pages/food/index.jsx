@@ -1,26 +1,17 @@
 import Header from "@/components/header/index.jsx";
 import { Icon } from "antd-mobile";
 import { Fragment, useState, useEffect } from "react";
-import { readLocal } from "@/utils/local.js";
-import { ADDRESS } from "@/constant";
 import CarouseGood from "@/components/carouseGood/index.jsx";
 import ShopList from '@/components/shopList/index.jsx'
 import API from "@/service";
+import {connect} from 'react-redux'
 import "./index.scss";
 const Home = (props) => {
 
-  let { history } = props;
+  let { history,Location } = props;
 
-  const [locationInfo, getLocationInfo] = useState({ name: "请选择地址..." });
   const [goodList, getGoodList] = useState([]);
   const [shopList,getShopList] = useState([])
-
-  useEffect(() => {
-    readLocal(ADDRESS).then((res) => {
-      if (!res) return;
-      getLocationInfo(res[0]);
-    });
-  }, []);
 
   useEffect(() => {
     API.indexEnter().then((res) => {
@@ -29,15 +20,15 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
-    if(!locationInfo.latitude) return;
+    if(!Location.latitude) return;
     const params = {
-      latitude: locationInfo.latitude,
-      longitude: locationInfo.longitude,
+      latitude: Location.latitude,
+      longitude: Location.longitude,
     };
     API.shoppingRestaurants(params).then((res) => {
       getShopList(res)
     });
-  }, [locationInfo]);
+  }, [Location]);
 
   const leftConfig = {
     icon: <Icon type="search" />,
@@ -45,7 +36,7 @@ const Home = (props) => {
   };
 
   const centerConfig = {
-    title: locationInfo.name,
+    title: Location.name,
     func: () => history.push("/location"),
   };
 
@@ -73,4 +64,8 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+const mapStateToProps = (state)=>{
+  return state
+}
+
+export default connect(mapStateToProps)(Home);

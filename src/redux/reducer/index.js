@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import User from "./user";
+import Location from "./location";
 
 const rootReducer = combineReducers({
-    User
+    Location
 })
 
 
