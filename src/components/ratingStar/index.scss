@@ -7,10 +7,9 @@
   display: flex;
 }
 
-.rating_num{
-    position: absolute;
-    left: 130rem;
-    color: #ff9a0d;
+.rating_num {
+  margin-left: 10rem;
+  color: #ff9a0d;
 }
 
 .star_overflow {
@@ -27,4 +26,11 @@
 .orange_fill {
   color: #ff9a0d;
   font-size: 24rem;
+}
+.star {
+  width: 120rem;
+}
+.describe {
+  transform: scale(0.8);
+  color: #666;
 }

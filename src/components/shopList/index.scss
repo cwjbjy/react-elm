@@ -47,6 +47,46 @@
       justify-content: space-between;
       height: 28rem;
       margin-top: 24rem;
+      .distribution {
+        transform: scale(0.7);
+        margin-right: -18rem;
+        .delivery_style {
+          font-size: 24rem;
+        }
+        .delivery_left {
+          color: #fff;
+          background-color: #3190e8;
+          border: 2rem solid #3190e8;
+        }
+        .delivery_right {
+          color: #3190e8;
+          background-color: #fff;
+          border: 2rem solid #3190e8;
+          margin-left: 8rem;
+        }
+      }
+    }
+    .fee_distance{
+        margin-top: 16rem;
+        font-size: 24rem;
+        display: flex;
+        justify-content: space-between;
+        .fee{
+            transform: scale(0.9);
+            color: #666;
+        }
+        .distance_time{
+            transform: scale(.9);
+            .distance{
+                color: #999;
+            }
+            .segmentation{
+                color: #ccc;
+            }
+            .order_time{
+                color: #3190e8;
+            }
+        }
     }
   }
 }

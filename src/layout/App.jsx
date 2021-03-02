@@ -9,6 +9,7 @@ const AppHome = (props)=>{
       <main>
         {routes}
       </main>
+      <div className="footer"></div>
       <Footer source={menuConfig}/>
     </div>
   )
