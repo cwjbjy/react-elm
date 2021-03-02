@@ -2,6 +2,7 @@ import Header from "@/components/header/index.jsx";
 import { Icon, List } from "antd-mobile";
 import { useEffect, useState } from "react";
 import API from "@/service/index";
+import { ADDRESS } from "@/constant";
 import "./index.scss";
 
 const Item = List.Item;
@@ -21,7 +22,7 @@ const Location = (props) => {
   let { history } = props;
 
   const leftConfig = {
-    icon: <Icon type="left" />,
+    icon: localStorage.getItem(ADDRESS) ? <Icon type="left" /> : '',
     func: () => history.goBack(),
   };
 

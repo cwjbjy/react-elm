@@ -1,7 +1,11 @@
 import routes from "@/router";
 import LayoutView from "@/layout/App.jsx";
 import { Suspense } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from "react-router-dom";
 import "./index.scss";
 
 const buildRouter = ({ path, Component, children }, key) => {
