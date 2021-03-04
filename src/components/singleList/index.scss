@@ -1,0 +1,14 @@
+.itemStyle{
+    height: 100rem;
+    line-height: 100rem;
+    padding-left: 40rem;
+    color: $font;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 40rem;
+    align-items: center;
+}
+
+.selected{
+    color: $active;
+}

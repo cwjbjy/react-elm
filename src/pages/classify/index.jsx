@@ -1,7 +1,8 @@
 import Header from "@/components/header/index.jsx";
 import Select from "@/components/select/index.jsx";
 import DoubleMenu from "@/components/doubleMenu/index.jsx";
-import ShopList from '@/components/shopList/index.jsx'
+import ShopList from '@/components/shopList/index.jsx';
+import SingleList from '@/components/singleList/index.jsx'
 import { Fragment, Component } from "react";
 import { Icon } from "antd-mobile";
 import "./index.scss";
@@ -26,7 +27,34 @@ class Classify extends Component {
       },
       categoryList: [],
       shopList:[],
-      loading:false
+      loading:false,
+      restaurant_category_ids:[],
+      sortList:[
+        {
+          label:'智能排序',
+          value:4
+        },
+        {
+          label:'距离最近',
+          value:5
+        },
+        {
+          label:'销量最高',
+          value:6
+        },
+        {
+          label:'起送价最低',
+          value:1
+        },
+        {
+          label:'配送速度最快',
+          value:2
+        },
+        {
+          label:'评分最高',
+          value:3
+        },
+      ]
     };
   }
 
@@ -74,6 +102,28 @@ class Classify extends Component {
     };
     this.setState({
       sortBy: "",
+      loading:true,
+      restaurant_category_ids:[id]
+    })
+    API.shoppingRestaurants(params).then((res) => {
+      this.setState({
+        shopList:res,
+        loading:false
+      })
+    });
+  }
+
+  onSort(id){
+    let { Location } = this.props;
+    let {restaurant_category_ids} = this.state;
+    const params = {
+      latitude: Location.latitude,
+      longitude: Location.longitude,
+      restaurant_category_ids,
+      order_by:id
+    };
+    this.setState({
+      sortBy: "",
       loading:true
     })
     API.shoppingRestaurants(params).then((res) => {
@@ -86,7 +136,7 @@ class Classify extends Component {
 
   render() {
     let { history, match } = this.props;
-    let { sortBy, food, sort, filter,categoryList,shopList,loading } = this.state;
+    let { sortBy, food, sort, filter,categoryList,shopList,loading,sortList } = this.state;
 
     const leftConfig = {
       icon: <Icon type="left" />,
@@ -113,7 +163,7 @@ class Classify extends Component {
             category={sortBy}
             callback={this.onChoose.bind(this)}
           >
-            222
+            <SingleList source={sortList} callback={this.onSort.bind(this)}/>
           </Select>
           <Select
             source={filter}
