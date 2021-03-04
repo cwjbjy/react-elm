@@ -37,7 +37,7 @@ const DoubleMenu = (props) => {
       return item.sub_categories.map((child, index) => {
         if (child.level !== 1) {
           return (
-            <li key={index} className="subMenu" onClick={()=>callback(child.id)}>
+            <li key={index} className="subMenu" onClick={()=>callback(child.id,item.name)}>
               <div>{child.name}</div>
               <div>{child.count}</div>
             </li>

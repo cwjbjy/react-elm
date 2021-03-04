@@ -21,10 +21,6 @@ class Classify extends Component {
         label: "排序",
         value: "sort",
       },
-      filter: {
-        label: "筛选",
-        value: "filter",
-      },
       categoryList: [],
       shopList:[],
       loading:false,
@@ -93,7 +89,7 @@ class Classify extends Component {
     }
   }
 
-  onMeun(id){
+  onMeun(id,label){
     let { Location } = this.props;
     const params = {
       latitude: Location.latitude,
@@ -103,7 +99,8 @@ class Classify extends Component {
     this.setState({
       sortBy: "",
       loading:true,
-      restaurant_category_ids:[id]
+      restaurant_category_ids:[id],
+      food:Object.assign(this.state.food,{label})
     })
     API.shoppingRestaurants(params).then((res) => {
       this.setState({
@@ -113,7 +110,7 @@ class Classify extends Component {
     });
   }
 
-  onSort(id){
+  onSort(id,label){
     let { Location } = this.props;
     let {restaurant_category_ids} = this.state;
     const params = {
@@ -124,7 +121,8 @@ class Classify extends Component {
     };
     this.setState({
       sortBy: "",
-      loading:true
+      loading:true,
+      sort:Object.assign(this.state.sort,{label})
     })
     API.shoppingRestaurants(params).then((res) => {
       this.setState({
@@ -136,7 +134,7 @@ class Classify extends Component {
 
   render() {
     let { history, match } = this.props;
-    let { sortBy, food, sort, filter,categoryList,shopList,loading,sortList } = this.state;
+    let { sortBy, food, sort,categoryList,shopList,loading,sortList } = this.state;
 
     const leftConfig = {
       icon: <Icon type="left" />,
@@ -164,13 +162,6 @@ class Classify extends Component {
             callback={this.onChoose.bind(this)}
           >
             <SingleList source={sortList} callback={this.onSort.bind(this)}/>
-          </Select>
-          <Select
-            source={filter}
-            category={sortBy}
-            callback={this.onChoose.bind(this)}
-          >
-            333
           </Select>
         </div>
         <ShopList source={shopList} loading={loading}/>

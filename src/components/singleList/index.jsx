@@ -1,15 +1,16 @@
 import "./index.scss";
 import PropTypes from "prop-types";
 import { Icon } from "antd-mobile";
-import { useState } from "react";
+import {  useState } from "react";
 
 const SingleList = (props) => {
   let { source,callback} = props;
   const [id, setId] = useState(null);
 
-  const onItem = (value) => {
+
+  const onItem = (value,label) => {
     setId(value);
-    callback(value)
+    callback(value,label)
   };
 
   return (
@@ -18,7 +19,7 @@ const SingleList = (props) => {
         <li
           key={index}
           className={`${item.value === id ? "selected" : ""} itemStyle`}
-          onClick={() => onItem(item.value)}
+          onClick={() => onItem(item.value,item.label)}
         >
           <span>{item.label}</span>
           {item.value === id ? <Icon type="check" color="#3190e8" /> : ""}
@@ -29,10 +30,10 @@ const SingleList = (props) => {
 };
 
 SingleList.propTypes = {
-  source: PropTypes.shape({
-    label: PropTypes.string,
-    value: PropTypes.any,
-  }),
+  source: PropTypes.arrayOf(PropTypes.shape({
+      label:PropTypes.string,
+      value:PropTypes.any
+  })) ,
   callback:PropTypes.func
 };
 
