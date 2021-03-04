@@ -17,7 +17,7 @@ class FetchClient {
         let conf = {};
         if (method === 'GET' || method === 'HEAD' || method === 'DELETE') {
             data = qs.stringify(data, {
-                arrayFormat: 'repeat'
+                arrayFormat: 'brackets'
             });
             url = `${url}?${data}`
         } else {

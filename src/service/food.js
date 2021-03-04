@@ -17,4 +17,10 @@ API.shoppingRestaurants = (params) => {
     })
 }
 
+API.category = (params) => {
+    return HttpClient.get(`${baseUrl}/shopping/v2/restaurant/category`,{
+        data:params
+    })
+}
+
 export default API

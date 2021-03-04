@@ -1,4 +1,7 @@
-.shopList {
+.shopList{
+    background-color: $bg;
+}
+.listItem {
   display: flex;
   padding: 32rem 20rem;
   border-bottom: 2rem solid $listBorder;
@@ -90,10 +93,4 @@
     }
   }
 }
-ul,
-h4 {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  background-color: $bg;
-}
+

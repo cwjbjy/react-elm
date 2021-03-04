@@ -5,19 +5,19 @@ const List = (props) => {
   let { source,callback } = props;
   return (
     <ul className="list">
-      {source.map((item, index) => (
-        <li className="list_item" key={index} onClick={callback.bind("",item)}>
-          <div className="title">{item.name}</div>
-          <p className="subTitle">{item.address}</p>
-        </li>
-      ))}
-    </ul>
+    {source.map((item, index) => (
+      <li className="list_item" key={index} onClick={callback.bind("",item)}>
+        <div className="title">{item.name}</div>
+        <p className="subTitle">{item.address}</p>
+      </li>
+    ))}
+  </ul>
   );
 };
 
 List.propTypes = {
   source: PropTypes.array,
-  callback:PropTypes.func
+  callback:PropTypes.func,
 };
 
 List.defaultProps = {

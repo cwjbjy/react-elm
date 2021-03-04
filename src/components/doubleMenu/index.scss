@@ -1,0 +1,58 @@
+.doubleMenu {
+  display: flex;
+  .menuLeft {
+    flex: 1;
+    background-color: #f1f1f1;
+    height: 774rem;
+    overflow-y: auto;
+    .listItem {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 24rem;
+      height: 84rem;
+      .name {
+        display: flex;
+        align-items: center;
+        .menuIcon {
+          width: 36rem;
+          height: 36rem;
+          margin-right: 10rem;
+        }
+        .title {
+          color: #666;
+          margin-top: 2rem;
+        }
+      }
+      .info {
+        display: flex;
+        align-items: center;
+        .count {
+          background-color: #ccc;
+          font-size: 24rem;
+          color: #fff;
+          padding: 0 6rem;
+          border:2rem solid #ccc;
+          border-radius: 30rem;
+        }
+      }
+    }
+    .itemActive{
+      background-color: #fff;
+    }
+  }
+  .menuRight {
+    flex: 1;
+    height: 774rem;
+    overflow-y: auto;
+    padding-left: 24rem;
+    .subMenu{
+        display: flex;
+        justify-content: space-between;
+        height: 84rem;
+        line-height: 84rem;
+        padding-right: 24rem;
+        color: #666;
+    }
+  }
+  
+}

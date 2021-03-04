@@ -1,6 +1,8 @@
 import "./index.scss";
 import PropTypes from "prop-types";
 import RatingStar from "@/components/ratingStar/index.jsx";
+import {ActivityIndicator} from 'antd-mobile'
+import { Fragment } from "react";
 
 const zhunshi = (supports) => {
   let zhunStatus;
@@ -17,12 +19,13 @@ const zhunshi = (supports) => {
 };
 
 const ShopList = (props) => {
-  let { source } = props;
+  let { source, loading } = props;
   const imgBaseUrl = "//elm.cangdu.org/img/";
   return (
-    <ul>
+    <Fragment>
+          <ul className="shopList">
       {source.map((item, index) => (
-        <li key={index} className="shopList">
+        <li key={index} className="listItem">
           <section>
             <img src={imgBaseUrl + item.image_path} alt="加载失败"></img>
           </section>
@@ -76,11 +79,14 @@ const ShopList = (props) => {
         </li>
       ))}
     </ul>
+      <ActivityIndicator toast text="加载中..." animating={loading} />
+    </Fragment>
   );
 };
 
 ShopList.prototype = {
   source: PropTypes.array,
+  loading: PropTypes.bool,
 };
 
 export default ShopList;

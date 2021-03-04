@@ -1,0 +1,7 @@
+.selectContainer{
+    display: flex;
+    border-bottom: 2rem solid #cec7c7;
+    div:nth-last-of-type(1){
+        border: none;
+    }
+}

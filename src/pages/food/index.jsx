@@ -12,6 +12,7 @@ const Home = (props) => {
 
   const [goodList, getGoodList] = useState([]);
   const [shopList,getShopList] = useState([])
+  const [loading,setLoading] = useState(false)
 
   useEffect(() => {
     API.indexEnter().then((res) => {
@@ -25,8 +26,12 @@ const Home = (props) => {
       latitude: Location.latitude,
       longitude: Location.longitude,
     };
+    setLoading(true)
     API.shoppingRestaurants(params).then((res) => {
       getShopList(res)
+      setLoading(false)
+    }).catch(()=>{
+      setLoading(false)
     });
   }, [Location]);
 
@@ -59,7 +64,7 @@ const Home = (props) => {
         <div className="iconfont icon-maijiadianpu"></div>
         <div className="text">附近商家</div>
       </div>
-      <ShopList source={shopList}/>
+      <ShopList source={shopList} loading={loading}/>
     </Fragment>
   );
 };

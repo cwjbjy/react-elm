@@ -1,0 +1,68 @@
+
+
+.category{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    height: 76rem;
+    border-right: 1px solid #cec7c7;
+}
+
+.label{
+    color: #333;
+    margin-right: 4rem;
+}
+
+.arrow{
+    font-size: 20rem;
+    color: #666;
+    transform: scale(.8);
+    margin-bottom: -4rem;
+    transition: all 0.3s;
+}
+
+.selected{
+    .label{
+        color:#3190e8
+    }
+    .arrow{
+        color: #3190e8;
+        transform: rotate(-180deg);
+    }
+}
+
+.showList{
+    background-color: $bg;
+    width: 100%;
+    position: absolute;
+    top: 166rem;
+    z-index: 20;
+}
+
+.selectList-enter{
+    opacity: 0;
+}
+
+.selectList-enter-active{
+    opacity: 1;
+    transition: all .3s;
+}
+
+.selectList-exit{
+    opacity: 1;
+}
+
+.selectList-exit-active{
+    opacity: 0;
+    transition: all .3s;
+}
+
+.back_cover{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: calc(45px + 76rem);
+}
