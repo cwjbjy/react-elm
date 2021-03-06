@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Fragment } from "react";
 import React from "react";
 import { imgBaseUrl } from "@/constant/config.js";
+import { ActivityIndicator } from "antd-mobile";
+import BuyCat from '@/components/buyCat/index.jsx'
 
 class ShopItems extends React.Component {
   constructor(props) {
@@ -81,7 +83,7 @@ class ShopItems extends React.Component {
   }
 
   render() {
-    let { source } = this.props;
+    let { source,loading,shopId } = this.props;
     let { current } = this.state;
     return (
       <Fragment>
@@ -127,12 +129,14 @@ class ShopItems extends React.Component {
                       <span>{food.specfoods[0].price}</span>
                       {food.specifications.length ? <span>起</span> : ""}
                     </div>
+                    <BuyCat food={food} shopId={shopId}/>
                   </div>
                 </li>
               ))}
             </ul>
           ))}
         </section>
+        <ActivityIndicator toast text="加载中..." animating={loading} />
       </Fragment>
     );
   }
@@ -140,6 +144,8 @@ class ShopItems extends React.Component {
 
 ShopItems.propTypes = {
   source: PropTypes.array,
+  loading:PropTypes.bool,
+  shopId:PropTypes.string
 };
 
 export default ShopItems;

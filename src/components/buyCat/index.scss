@@ -1,0 +1,41 @@
+.cart_module {
+  .cart_button {
+    display: flex;
+    align-items: center;
+    .leftIcon-enter {
+      opacity: 0;
+      transform: translateX(70rem);
+    }
+
+    .leftIcon-enter-active {
+      opacity: 1;
+      transition: all 0.3s;
+      transform: translateX(0rem);
+    }
+
+    .leftIcon-exit {
+      opacity: 1;
+      transform: translateX(0rem);
+    }
+
+    .leftIcon-exit-active {
+      opacity: 0;
+      transition: all 0.3s;
+      transform: translateX(70rem);
+    }
+
+    .cart_num {
+      text-align: center;
+      font-family: Helvetica Neue, Tahoma;
+      color: $font;
+      font-size: 30rem;
+      min-width: 48rem;
+    }
+    .icon-jian {
+      color: $active;
+    }
+    .icon-jia {
+      color: $active;
+    }
+  }
+}

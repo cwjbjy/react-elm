@@ -8,17 +8,19 @@ import Tabs from "@/components/tabs/index.jsx";
 import ShopItems from "@/components/shopItems/index.jsx";
 import { Icon } from "antd-mobile";
 const Shop = (props) => {
-  console.log(props);
   let { match, history } = props;
   const [shopDetailData, getShop] = useState({});
   const [menuList, getMenu] = useState([]);
+  const [loading,setLoading] = useState(false);
   useEffect(() => {
     const restaurant_id = match.params.id;
+    setLoading(true)
     API.shoppingRestaurant(`${restaurant_id}`).then((res) => {
       getShop(res);
     });
     API.v2Menu({ restaurant_id }).then((res) => {
       getMenu(res);
+      setLoading(false)
     });
   }, [match.params.id]);
 
@@ -35,7 +37,7 @@ const Shop = (props) => {
       <Header left={leftConfig} center={centerConfig} />
       <ShopDetail source={shopDetailData} />
       <Tabs source={tabs} initialPage={0}>
-        <ShopItems source={menuList} />
+        <ShopItems source={menuList} loading={loading} shopId={match.params.id}/>
         <div>2</div>
       </Tabs>
     </div>

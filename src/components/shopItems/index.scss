@@ -50,6 +50,8 @@
     .count{
         margin-left: 112rem;
         margin-top: 16rem;
+        display: flex;
+        justify-content: space-between;
         .food_price{
             span{
                 font-family: 'Helvetica Neue',Tahoma,Arial;
