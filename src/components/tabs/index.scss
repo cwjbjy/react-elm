@@ -1,0 +1,30 @@
+.tabs{
+    display: flex;
+    font-size: 32rem;
+    color: $font;
+    background-color: $bg;
+    padding: 16rem 0 28rem;
+    border-bottom: 2rem solid #ebebeb;
+    line-height: 32rem;
+    height: 28rem;
+    .tab{
+        flex: 1;
+        text-align: center;
+        span{
+            padding-bottom: 10rem;
+        }
+        &_active{
+            color: $active;
+            span{
+                border-bottom: 4rem solid $active;
+            }
+            
+        }
+    }
+}
+
+.content{
+    background:$bg;
+    display: flex;
+    position: relative; 
+}

@@ -1,0 +1,46 @@
+.shopDetail {
+  display: flex;
+  padding: 20rem;
+  position: relative;
+  height: 140rem;
+  .mask{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    opacity: .25;
+    background: #000;
+  }
+  .header_cover_img_con {
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    .header_cover_img {
+      width: 100%;
+      position: absolute;
+      z-index: -2;
+      filter: blur(10px);
+    }
+  }
+  .overImg {
+    width: 136rem;
+    height: 136rem;
+    margin-right: 20rem;
+  }
+  .info {
+    color: #fff;
+    font-size: 24rem;
+    .shopName {
+      font-size: 36rem;
+      margin-bottom: 20rem;
+    }
+    .shopDis{
+        margin-bottom: 20rem;
+    }
+  }
+}

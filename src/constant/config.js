@@ -1,0 +1,1 @@
+export const imgBaseUrl = "//elm.cangdu.org/img/";
