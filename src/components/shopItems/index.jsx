@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import React from "react";
 import { imgBaseUrl } from "@/constant/config.js";
 import { ActivityIndicator } from "antd-mobile";
-import BuyCat from '@/components/buyCat/index.jsx'
+import BuyCat from "@/components/buyCat/index.jsx";
 import { connect } from "react-redux";
 
 class ShopItems extends React.Component {
@@ -13,17 +13,11 @@ class ShopItems extends React.Component {
     this.state = {
       current: 0,
       pre: 0,
-      goodsList:[]
+      goodsList: {},
     };
     this.leftContent = React.createRef();
     this.rightContent = React.createRef();
-    this.topList = []
-  }
-
-  componentDidMount() {
-    document.querySelectorAll(".classiftyList").forEach((item) => {
-        this.topList.push(item.offsetTop);
-    });
+    this.topList = [];
   }
 
   onMenuItem(index) {
@@ -42,6 +36,11 @@ class ShopItems extends React.Component {
     let { pre } = this.state;
     let now = +new Date();
     if (now - pre > wait) {
+      if(this.topList.length === 0){
+        document.querySelectorAll(".classiftyList").forEach((item) => {
+          this.topList.push(item.offsetTop);
+        });
+      }
       this.setState(
         {
           pre: now,
@@ -63,11 +62,15 @@ class ShopItems extends React.Component {
         break;
       }
       if (currentTop < this.topList[i]) {
-        this.setState({
-          current: i - 1,
-        },()=>{
-            this.handlerLeftScroll()
-        });
+        this.setState(
+          {
+            current: i - 1,
+          },
+          () => {
+            console.log("current", this.state.current);
+            this.handlerLeftScroll();
+          }
+        );
         break;
       }
       if (currentTop > this.topList[len - 1]) {
@@ -79,14 +82,47 @@ class ShopItems extends React.Component {
     }
   }
 
-  handlerLeftScroll(){
-      let leftTop = document.querySelector('.menu_active').offsetTop;
-      this.leftContent.current.scrollTop = leftTop
+  handlerLeftScroll() {
+    let leftTop = document.querySelector(".menu_active").offsetTop;
+    this.leftContent.current.scrollTop = leftTop;
+  }
+
+  onCart(category_id) {
+    let { BuyCat, shopId } = this.props;
+    let { goodsList } = this.state;
+    let num = 0;
+
+    for (let key1 in BuyCat[shopId]) {
+      if (category_id === +key1) {
+        for (let key2 in BuyCat[shopId][key1]) {
+          for (let key3 in BuyCat[shopId][key1][key2]) {
+            if (BuyCat[shopId][key1][key2][key3]) {
+              num += BuyCat[shopId][key1][key2][key3].foodNum;
+            }
+          }
+        }
+
+        if (Reflect.has(goodsList, key1)) {
+          goodsList[key1] = num;
+        } else {
+          Object.assign(goodsList, { [key1]: num });
+        }
+
+        this.setState(
+          {
+            goodsList,
+          },
+          () => {
+            console.log(goodsList);
+          }
+        );
+      }
+    }
   }
 
   render() {
-    let { loading,shopId,source } = this.props;
-    let { current } = this.state;
+    let { loading, shopId, source } = this.props;
+    let { current, goodsList } = this.state;
     return (
       <Fragment>
         <div className="left" ref={this.leftContent}>
@@ -98,7 +134,17 @@ class ShopItems extends React.Component {
                 onClick={() => this.onMenuItem(index)}
               >
                 <span>{item.name}</span>
-                <span>{item.categoryNum}</span>
+                {Object.keys(goodsList).length !== 0
+                  ? Object.keys(goodsList).map((key) =>
+                      +key === item.id ? (
+                        <span key={key} className="sign">
+                          {goodsList[key] !== 0 ? goodsList[key] : ""}
+                        </span>
+                      ) : (
+                        ""
+                      )
+                    )
+                  : ""}
               </li>
             ))}
           </ul>
@@ -106,36 +152,46 @@ class ShopItems extends React.Component {
         <section
           className="right"
           ref={this.rightContent}
-          onScrollCapture={() => this.handleOnScroll(300)}
+          onScrollCapture={this.handleOnScroll.bind(this,300)}
         >
           {source.map((item, index) => (
             <ul key={index} id={`food_${index}`} className="classiftyList">
-              {item.foods.map((food, i) => (
-                <li key={i} className="food_item">
-                  <div className="info">
-                    <img
-                      src={imgBaseUrl + food.image_path}
-                      alt="加载失败"
-                      className="foodImg"
-                    ></img>
-                    <div className="describle">
-                      <div className="foodName">{food.name}</div>
-                      <div className="foodTips">
-                        <span>月售{food.month_sales}份</span>
-                        <span className="rate">好评率{food.satisfy_rate}%</span>
+              {item.foods.map((food, i) =>
+                food.specifications.length === 0 ? (
+                  <li key={i} className="food_item">
+                    <div className="info">
+                      <img
+                        src={imgBaseUrl + food.image_path}
+                        alt="加载失败"
+                        className="foodImg"
+                      ></img>
+                      <div className="describle">
+                        <div className="foodName">{food.name}</div>
+                        <div className="foodTips">
+                          <span>月售{food.month_sales}份</span>
+                          <span className="rate">
+                            好评率{food.satisfy_rate}%
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="count">
-                    <div className="food_price">
-                      <span>¥</span>
-                      <span>{food.specfoods[0].price}</span>
-                      {food.specifications.length ? <span>起</span> : ""}
+                    <div className="count">
+                      <div className="food_price">
+                        <span>¥</span>
+                        <span>{food.specfoods[0].price}</span>
+                        {food.specifications.length ? <span>起</span> : ""}
+                      </div>
+                      <BuyCat
+                        food={food}
+                        shopId={shopId}
+                        callback={this.onCart.bind(this)}
+                      />
                     </div>
-                    <BuyCat food={food} shopId={shopId}/>
-                  </div>
-                </li>
-              ))}
+                  </li>
+                ) : (
+                  ""
+                )
+              )}
             </ul>
           ))}
         </section>
@@ -147,10 +203,9 @@ class ShopItems extends React.Component {
 
 ShopItems.propTypes = {
   source: PropTypes.array,
-  loading:PropTypes.bool,
-  shopId:PropTypes.string
+  loading: PropTypes.bool,
+  shopId: PropTypes.string,
 };
-
 
 const mapStateToProps = (state) => {
   return state;

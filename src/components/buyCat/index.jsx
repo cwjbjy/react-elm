@@ -14,7 +14,7 @@ class BuyCat extends Component {
   }
   handlerClick(food, shop_id,type) {
     let { foodNum } = this.state;
-    let { buyCatA } = this.props;
+    let { buyCatA ,callback} = this.props;
     this.setState({
         foodNum: type === 'add' ? foodNum + 1 :  foodNum - 1,
     },() => {
@@ -24,6 +24,7 @@ class BuyCat extends Component {
         buyCatA.SET_GOODS({
             foodNum,category_id,item_id,food_id,price,name,shop_id
         });
+        callback(category_id)
       }
     );
   }
