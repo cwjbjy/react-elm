@@ -5,6 +5,7 @@ import React from "react";
 import { imgBaseUrl } from "@/constant/config.js";
 import { ActivityIndicator } from "antd-mobile";
 import BuyCat from '@/components/buyCat/index.jsx'
+import { connect } from "react-redux";
 
 class ShopItems extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class ShopItems extends React.Component {
     this.state = {
       current: 0,
       pre: 0,
+      goodsList:[]
     };
     this.leftContent = React.createRef();
     this.rightContent = React.createRef();
@@ -83,7 +85,7 @@ class ShopItems extends React.Component {
   }
 
   render() {
-    let { source,loading,shopId } = this.props;
+    let { loading,shopId,source } = this.props;
     let { current } = this.state;
     return (
       <Fragment>
@@ -95,7 +97,8 @@ class ShopItems extends React.Component {
                 className={`${current === index ? "menu_active" : ""} menuItem`}
                 onClick={() => this.onMenuItem(index)}
               >
-                {item.name}
+                <span>{item.name}</span>
+                <span>{item.categoryNum}</span>
               </li>
             ))}
           </ul>
@@ -148,4 +151,9 @@ ShopItems.propTypes = {
   shopId:PropTypes.string
 };
 
-export default ShopItems;
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps)(ShopItems);

@@ -1,5 +1,7 @@
 import "./index.scss";
 import { connect } from "react-redux";
+import {bindActionCreators} from 'redux';
+import * as buyCatA from '@/redux/action/buyCatA.js'
 import { useEffect, useState } from "react";
 import API from "@/service";
 import ShopDetail from "@/components/shopDetail/index.jsx";
@@ -32,12 +34,31 @@ const Shop = (props) => {
     title: "商家",
   };
   const tabs = [{ title: "商品" }, { title: "评价" }];
+
+  const onFood = ()=>{
+    let {BuyCat} = props;
+    let arr = menuList;
+    for(let key1 in BuyCat){
+      if(key1 === match.params.id){
+        for(let key2 in BuyCat[key1]){
+          for(let i = 0 ,len = arr.length;i< len;i++){
+            if(+key2 === arr[i].id){
+              let total =  Object.keys(BuyCat[key1][key2]).length;
+              arr[i].categoryNum = total;
+              break;
+            }
+          }
+        }
+      }
+    }
+    getMenu(arr)
+  }
   return (
     <div className="shop">
       <Header left={leftConfig} center={centerConfig} />
       <ShopDetail source={shopDetailData} />
       <Tabs source={tabs} initialPage={0}>
-        <ShopItems source={menuList} loading={loading} shopId={match.params.id}/>
+        <ShopItems source={menuList} loading={loading} shopId={match.params.id} callback={onFood}/>
         <div>2</div>
       </Tabs>
     </div>
@@ -48,4 +69,10 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps)(Shop);
+const mapDispatchToProps = (dispatch)=>{
+    return {
+        buyCatA:bindActionCreators(buyCatA,dispatch)
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Shop);

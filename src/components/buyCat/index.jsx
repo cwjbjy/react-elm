@@ -2,7 +2,9 @@ import "./index.scss";
 import PropTypes from "prop-types";
 import { Component } from "react";
 import { CSSTransition } from "react-transition-group";
-
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as buyCatA from "@/redux/action/buyCatA.js";
 class BuyCat extends Component {
   constructor() {
     super();
@@ -10,20 +12,24 @@ class BuyCat extends Component {
       foodNum: 0,
     };
   }
-  handlerAdd() {
+  handlerClick(food, shop_id,type) {
     let { foodNum } = this.state;
+    let { buyCatA } = this.props;
     this.setState({
-      foodNum: foodNum + 1,
-    });
+        foodNum: type === 'add' ? foodNum + 1 :  foodNum - 1,
+    },() => {
+        let { foodNum } = this.state;
+        let { category_id, item_id } = food;
+        let { food_id, price, name } = food.specfoods[0];
+        buyCatA.SET_GOODS({
+            foodNum,category_id,item_id,food_id,price,name,shop_id
+        });
+      }
+    );
   }
-  handlerSubtract() {
-    let { foodNum } = this.state;
-    this.setState({
-      foodNum: foodNum - 1,
-    });
-  }
+
   render() {
-    let { food } = this.props;
+    let { food, shopId } = this.props;
     let { foodNum } = this.state;
     let flag = foodNum === 0 ? false : true;
     const single = (
@@ -36,13 +42,13 @@ class BuyCat extends Component {
         >
           <div
             className="iconfont icon-jian"
-            onClick={this.handlerSubtract.bind(this)}
+            onClick={this.handlerClick.bind(this, food, shopId,'sub')}
           ></div>
         </CSSTransition>
         <span className="cart_num">{foodNum ? foodNum : ""}</span>
         <div
           className="iconfont icon-jia"
-          onClick={this.handlerAdd.bind(this)}
+          onClick={this.handlerClick.bind(this, food, shopId,'add')}
         ></div>
       </div>
     );
@@ -56,17 +62,15 @@ class BuyCat extends Component {
         >
           <div
             className="iconfont icon-jian"
-            onClick={this.handlerSubtract.bind(this)}
           ></div>
         </CSSTransition>
         <span className="cart_num">{foodNum ? foodNum : ""}</span>
         {flag ? (
           <div
             className="iconfont icon-jia"
-            onClick={this.handlerAdd.bind(this)}
           ></div>
         ) : (
-          <div className="show_chooselist" onClick={this.handlerAdd.bind(this)}>
+          <div className="show_chooselist">
             选规格
           </div>
         )}
@@ -83,6 +87,17 @@ class BuyCat extends Component {
 BuyCat.propTypes = {
   food: PropTypes.object,
   shopId: PropTypes.string,
+  callback:PropTypes.func
 };
 
-export default BuyCat;
+const mapStateToProps = (state) => {
+  return state;
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    buyCatA: bindActionCreators(buyCatA, dispatch),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BuyCat);
