@@ -38,4 +38,14 @@
       color: $active;
     }
   }
+  .show_chooselist{
+    display: block;
+    font-size: 24rem;
+    color: #fff;
+    padding: 10rem 16rem;
+    background-color: #3190e8;
+    border-radius: 8rem;
+    border: 2rem solid #3190e8;
+  }
+
 }
