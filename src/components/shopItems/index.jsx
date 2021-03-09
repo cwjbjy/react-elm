@@ -1,7 +1,6 @@
 import "./index.scss";
 import PropTypes from "prop-types";
 import React from "react";
-import { Fragment } from "react";
 import { imgBaseUrl } from "@/constant/config.js";
 import { ActivityIndicator } from "antd-mobile";
 import { connect } from "react-redux";
@@ -151,7 +150,7 @@ class ShopItems extends React.Component {
     let { loading, shopId, source } = this.props;
     let { current, goodsList, totalMoney, totalCount } = this.state;
     return (
-      <Fragment>
+      <div className="shopItems">
         <div className="left" ref={this.leftContent}>
           <ul>
             {source.map((item, index) => (
@@ -224,7 +223,7 @@ class ShopItems extends React.Component {
         </section>
         <ShoppingCart totalMoney={totalMoney} totalCount={totalCount} />
         <ActivityIndicator toast text="加载中..." animating={loading} />
-      </Fragment>
+      </div>
     );
   }
 }

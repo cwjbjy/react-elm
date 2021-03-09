@@ -1,6 +1,12 @@
+.shopItems{
+    background:$bg;
+    display: flex;
+    position: relative; 
+}
+
 .left{
     width: 180rem;
-    height: calc(100vh - 45px - 180rem - 74rem);
+    height: calc(100vh - 45px - 180rem);
     overflow-y: auto;
     overflow-x: hidden;
     background-color: #f5f5f5;    
@@ -15,7 +21,7 @@
 
 .right{
     flex: 1;
-    height: calc(100vh - 45px - 180rem - 74rem);
+    height: calc(100vh - 45px - 180rem);
     overflow-y: auto;
     overflow-x: hidden; 
 }
