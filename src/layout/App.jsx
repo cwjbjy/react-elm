@@ -1,5 +1,5 @@
-import Footer from "../components/footer/index.jsx";
-import menuConfig from '../constant/menu';
+// import Footer from "../components/footer/index.jsx";
+// import menuConfig from '../constant/menu';
 import {Component} from 'react'
 import { connect } from "react-redux";
 import "./App.scss";
@@ -8,7 +8,7 @@ class AppHome extends Component{
   componentDidMount(){
     let {Location} = this.props;
     if(!Location.latitude){
-      this.props.history.push('/location')
+      this.props.history.push('/login')
     }else if(this.props.location.pathname !== '/food'){
       this.props.history.push('/food')
     }
@@ -21,7 +21,7 @@ class AppHome extends Component{
           {routes}
         </main>
         <div className="footer"></div>
-        <Footer source={menuConfig}/>
+        {/* <Footer source={menuConfig}/> */}
       </div>
     )
   }

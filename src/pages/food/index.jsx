@@ -42,7 +42,7 @@ const Home = (props) => {
 
   const centerConfig = {
     title: Location.name,
-    func: () => history.push("/location"),
+    func: () => history.push("/login"),
   };
 
   const rightConfig = {

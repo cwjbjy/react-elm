@@ -5,7 +5,7 @@ const City = lazy(()=>import(/* webpackChunkName: "city" */ '@/pages/city/index.
 
 const location = [
     {
-        path:'/location',
+        path:'/login',
         Component:Location,
         layout:'NONE',
     },

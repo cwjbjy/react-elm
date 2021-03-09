@@ -68,7 +68,6 @@ class ShopItems extends React.Component {
             current: i - 1,
           },
           () => {
-            console.log("current", this.state.current);
             this.handlerLeftScroll();
           }
         );
@@ -89,7 +88,7 @@ class ShopItems extends React.Component {
   }
 
   onCart(category_id) {
-    let { BuyCart, shopId } = this.props;
+    let { BuyCart, shopId, source } = this.props;
     let { goodsList } = this.state;
     let num = 0;
 
@@ -114,6 +113,16 @@ class ShopItems extends React.Component {
         });
       }
     }
+
+    for (let i = 0, len = source.length; i < len; i++) {
+      if (source[i].id === category_id) {
+        this.setState({
+          current: i,
+        });
+        break;
+      }
+    }
+
     this.handlerShoppingCart(BuyCart, shopId);
   }
 
@@ -150,77 +159,82 @@ class ShopItems extends React.Component {
     let { loading, shopId, source } = this.props;
     let { current, goodsList, totalMoney, totalCount } = this.state;
     return (
-      <div className="shopItems">
-        <div className="left" ref={this.leftContent}>
-          <ul>
-            {source.map((item, index) => (
-              <li
-                key={index}
-                className={`${current === index ? "menu_active" : ""} menuItem`}
-                onClick={() => this.onMenuItem(index)}
-              >
-                <span>{item.name}</span>
-                {Object.keys(goodsList).length !== 0
-                  ? Object.keys(goodsList).map((key) =>
-                      +key === item.id ? (
-                        <span key={key} className="sign">
-                          {goodsList[key] !== 0 ? goodsList[key] : ""}
-                        </span>
-                      ) : (
-                        ""
-                      )
-                    )
-                  : ""}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <section
-          className="right"
-          ref={this.rightContent}
-          onScrollCapture={this.handleOnScroll.bind(this, 300)}
-        >
-          {source.map((item, index) => (
-            <ul key={index} id={`food_${index}`} className="classiftyList">
-              {item.foods.map((food, i) =>
-                food.specifications.length === 0 ? (
-                  <li key={i} className="food_item">
-                    <div className="info">
-                      <img
-                        src={imgBaseUrl + food.image_path}
-                        alt="加载失败"
-                        className="foodImg"
-                      ></img>
-                      <div className="describle">
-                        <div className="foodName">{food.name}</div>
-                        <div className="foodTips">
-                          <span>月售{food.month_sales}份</span>
-                          <span className="rate">
-                            好评率{food.satisfy_rate}%
+      <div>
+        <div className="shopItems">
+          <div className="left" ref={this.leftContent}>
+            <ul>
+              {source.map((item, index) => (
+                <li
+                  key={index}
+                  className={`${
+                    current === index ? "menu_active" : ""
+                  } menuItem`}
+                  onClick={() => this.onMenuItem(index)}
+                >
+                  <span>{item.name}</span>
+                  {Object.keys(goodsList).length !== 0
+                    ? Object.keys(goodsList).map((key) =>
+                        +key === item.id ? (
+                          <span key={key} className="sign">
+                            {goodsList[key] !== 0 ? goodsList[key] : ""}
                           </span>
+                        ) : (
+                          ""
+                        )
+                      )
+                    : ""}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <section
+            className="right"
+            ref={this.rightContent}
+            onScrollCapture={this.handleOnScroll.bind(this, 300)}
+          >
+            {source.map((item, index) => (
+              <ul key={index} id={`food_${index}`} className="classiftyList">
+                {item.foods.map((food, i) =>
+                  food.specifications.length === 0 ? (
+                    <li key={i} className="food_item">
+                      <div className="info">
+                        <img
+                          src={imgBaseUrl + food.image_path}
+                          alt="加载失败"
+                          className="foodImg"
+                        ></img>
+                        <div className="describle">
+                          <div className="foodName">{food.name}</div>
+                          <div className="foodTips">
+                            <span>月售{food.month_sales}份</span>
+                            <span className="rate">
+                              好评率{food.satisfy_rate}%
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="count">
-                      <div className="food_price">
-                        <span>¥</span>
-                        <span>{food.specfoods[0].price}</span>
-                        {food.specifications.length ? <span>起</span> : ""}
+                      <div className="count">
+                        <div className="food_price">
+                          <span>¥</span>
+                          <span>{food.specfoods[0].price}</span>
+                          {food.specifications.length ? <span>起</span> : ""}
+                        </div>
+                        <BuyCount
+                          food={food}
+                          shopId={shopId}
+                          callback={this.onCart.bind(this)}
+                        />
                       </div>
-                      <BuyCount
-                        food={food}
-                        shopId={shopId}
-                        callback={this.onCart.bind(this)}
-                      />
-                    </div>
-                  </li>
-                ) : (
-                  ""
-                )
-              )}
-            </ul>
-          ))}
-        </section>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+              </ul>
+            ))}
+          </section>
+        </div>
+        <div className="footer"></div>
         <ShoppingCart totalMoney={totalMoney} totalCount={totalCount} />
         <ActivityIndicator toast text="加载中..." animating={loading} />
       </div>
