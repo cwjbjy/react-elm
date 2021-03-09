@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 import Location from "./location";
-import BuyCat from './buyCatR';
+import BuyCart from './buyCountR';
 
 const rootReducer = combineReducers({
-    Location,BuyCat
+    Location,BuyCart
 })
 
 

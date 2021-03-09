@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import React from "react";
 import { imgBaseUrl } from "@/constant/config.js";
 import { ActivityIndicator } from "antd-mobile";
-import BuyCat from "@/components/buyCat/index.jsx";
+import BuyCount from "@/components/buyCount/index.jsx";
 import { connect } from "react-redux";
 
 class ShopItems extends React.Component {
@@ -88,16 +88,16 @@ class ShopItems extends React.Component {
   }
 
   onCart(category_id) {
-    let { BuyCat, shopId } = this.props;
+    let { BuyCart, shopId } = this.props;
     let { goodsList } = this.state;
     let num = 0;
 
-    for (let key1 in BuyCat[shopId]) {
+    for (let key1 in BuyCart[shopId]) {
       if (category_id === +key1) {
-        for (let key2 in BuyCat[shopId][key1]) {
-          for (let key3 in BuyCat[shopId][key1][key2]) {
-            if (BuyCat[shopId][key1][key2][key3]) {
-              num += BuyCat[shopId][key1][key2][key3].foodNum;
+        for (let key2 in BuyCart[shopId][key1]) {
+          for (let key3 in BuyCart[shopId][key1][key2]) {
+            if (BuyCart[shopId][key1][key2][key3]) {
+              num += BuyCart[shopId][key1][key2][key3].foodNum;
             }
           }
         }
@@ -181,7 +181,7 @@ class ShopItems extends React.Component {
                         <span>{food.specfoods[0].price}</span>
                         {food.specifications.length ? <span>起</span> : ""}
                       </div>
-                      <BuyCat
+                      <BuyCount
                         food={food}
                         shopId={shopId}
                         callback={this.onCart.bind(this)}

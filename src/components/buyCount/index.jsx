@@ -4,8 +4,8 @@ import { Component } from "react";
 import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as buyCatA from "@/redux/action/buyCatA.js";
-class BuyCat extends Component {
+import * as buyCountA from "@/redux/action/buyCountA.js";
+class BuyCount extends Component {
   constructor() {
     super();
     this.state = {
@@ -14,14 +14,14 @@ class BuyCat extends Component {
   }
   handlerClick(food, shop_id,type) {
     let { foodNum } = this.state;
-    let { buyCatA ,callback} = this.props;
+    let { buyCountA ,callback} = this.props;
     this.setState({
         foodNum: type === 'add' ? foodNum + 1 :  foodNum - 1,
     },() => {
         let { foodNum } = this.state;
         let { category_id, item_id } = food;
         let { food_id, price, name } = food.specfoods[0];
-        buyCatA.SET_GOODS({
+        buyCountA.SET_GOODS({
             foodNum,category_id,item_id,food_id,price,name,shop_id
         });
         callback(category_id)
@@ -85,7 +85,7 @@ class BuyCat extends Component {
   }
 }
 
-BuyCat.propTypes = {
+BuyCount.propTypes = {
   food: PropTypes.object,
   shopId: PropTypes.string,
   callback:PropTypes.func
@@ -97,8 +97,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    buyCatA: bindActionCreators(buyCatA, dispatch),
+    buyCountA: bindActionCreators(buyCountA, dispatch),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BuyCat);
+export default connect(mapStateToProps, mapDispatchToProps)(BuyCount);

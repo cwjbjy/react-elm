@@ -1,7 +1,4 @@
 import "./index.scss";
-import { connect } from "react-redux";
-import {bindActionCreators} from 'redux';
-import * as buyCatA from '@/redux/action/buyCatA.js'
 import { useEffect, useState } from "react";
 import API from "@/service";
 import ShopDetail from "@/components/shopDetail/index.jsx";
@@ -47,14 +44,6 @@ const Shop = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return state;
-};
 
-const mapDispatchToProps = (dispatch)=>{
-    return {
-        buyCatA:bindActionCreators(buyCatA,dispatch)
-    }
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(Shop);
+export default Shop;

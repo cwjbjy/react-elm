@@ -14,7 +14,7 @@ const initalState = {
     }
 }
 
-const BuyCat = (state = initalState, action) => {
+const BuyCart = (state = initalState, action) => {
     switch (action.type) {
         case GOODS:
             let {
@@ -37,4 +37,4 @@ const BuyCat = (state = initalState, action) => {
     }
 }
 
-export default BuyCat
+export default BuyCart
