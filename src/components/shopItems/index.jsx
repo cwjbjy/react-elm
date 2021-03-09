@@ -1,12 +1,12 @@
 import "./index.scss";
 import PropTypes from "prop-types";
-import { Fragment } from "react";
 import React from "react";
+import { Fragment } from "react";
 import { imgBaseUrl } from "@/constant/config.js";
 import { ActivityIndicator } from "antd-mobile";
-import BuyCount from "@/components/buyCount/index.jsx";
 import { connect } from "react-redux";
-
+import BuyCount from "@/components/buyCount/index.jsx";
+import ShoppingCart from "@/components/shoppingCart/index.jsx";
 class ShopItems extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +14,8 @@ class ShopItems extends React.Component {
       current: 0,
       pre: 0,
       goodsList: {},
+      totalMoney: "0.00",
+      totalCount: 0,
     };
     this.leftContent = React.createRef();
     this.rightContent = React.createRef();
@@ -36,7 +38,7 @@ class ShopItems extends React.Component {
     let { pre } = this.state;
     let now = +new Date();
     if (now - pre > wait) {
-      if(this.topList.length === 0){
+      if (this.topList.length === 0) {
         document.querySelectorAll(".classiftyList").forEach((item) => {
           this.topList.push(item.offsetTop);
         });
@@ -108,21 +110,46 @@ class ShopItems extends React.Component {
           Object.assign(goodsList, { [key1]: num });
         }
 
-        this.setState(
-          {
-            goodsList,
-          },
-          () => {
-            console.log(goodsList);
-          }
-        );
+        this.setState({
+          goodsList,
+        });
       }
+    }
+    this.handlerShoppingCart(BuyCart, shopId);
+  }
+
+  handlerShoppingCart(BuyCart, shopId) {
+    let totalMoney = 0;
+    let totalCount = 0;
+    if (BuyCart[shopId]) {
+      Object.keys(BuyCart[shopId]).forEach((category_id) => {
+        Object.keys(BuyCart[shopId][category_id]).forEach((itemId) => {
+          Object.keys(BuyCart[shopId][category_id][itemId]).forEach(
+            (foodId) => {
+              let foodItem = BuyCart[shopId][category_id][itemId][foodId];
+              if (foodItem) {
+                totalMoney += foodItem.foodNum * foodItem.price;
+                totalCount += foodItem.foodNum;
+              }
+            }
+          );
+        });
+      });
+      this.setState({
+        totalMoney: totalMoney.toFixed(2),
+        totalCount,
+      });
+    } else {
+      this.setState({
+        totalMoney: "0.00",
+        totalCount: 0,
+      });
     }
   }
 
   render() {
     let { loading, shopId, source } = this.props;
-    let { current, goodsList } = this.state;
+    let { current, goodsList, totalMoney, totalCount } = this.state;
     return (
       <Fragment>
         <div className="left" ref={this.leftContent}>
@@ -152,7 +179,7 @@ class ShopItems extends React.Component {
         <section
           className="right"
           ref={this.rightContent}
-          onScrollCapture={this.handleOnScroll.bind(this,300)}
+          onScrollCapture={this.handleOnScroll.bind(this, 300)}
         >
           {source.map((item, index) => (
             <ul key={index} id={`food_${index}`} className="classiftyList">
@@ -195,6 +222,7 @@ class ShopItems extends React.Component {
             </ul>
           ))}
         </section>
+        <ShoppingCart totalMoney={totalMoney} totalCount={totalCount} />
         <ActivityIndicator toast text="加载中..." animating={loading} />
       </Fragment>
     );

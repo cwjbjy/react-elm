@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
 import Location from "./location";
-import BuyCart from './buyCountR';
+import BuyCart from './buyCount';
+import ShopDetail from "./shopDetail";
 
 const rootReducer = combineReducers({
-    Location,BuyCart
+    Location,BuyCart,ShopDetail
 })
 
 
